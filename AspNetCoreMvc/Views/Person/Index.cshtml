@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AspNetCoreMvc.Models.Person>
+
+@{
+    ViewData["Title"] = "People";
+}
+<h2>Products</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)///what the fuck is reflection
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
