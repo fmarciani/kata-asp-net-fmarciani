@@ -19,9 +19,9 @@ namespace AspNetCoreMvc.Controllers
         }
         
         // GET: /<controller>/
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var products = _prodRepo.GetProducts();
+            var products = await _prodRepo.GetProducts();
             return View(products);
         }
     }

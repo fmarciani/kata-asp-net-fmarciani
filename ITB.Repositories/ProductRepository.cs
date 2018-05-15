@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using ITB.Shared;
 using Dapper;
+using System.Threading.Tasks;
 
 namespace ITB.Repositories
 {
@@ -16,12 +17,12 @@ namespace ITB.Repositories
             _conn = conn;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public Task<IEnumerable<Product>> GetProducts()
         {
             using (var conn = _conn)
             {
                 conn.Open();
-                return conn.Query<Product>("SELECT *, ProductId AS Id FROM product");
+                return conn.QueryAsync<Product>("SELECT *, ProductId AS Id FROM product");
             }
         }
 
