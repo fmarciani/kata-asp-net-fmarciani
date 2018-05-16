@@ -31,7 +31,7 @@ namespace ITB.Repositories
             using (var conn = _conn)
             {
                 conn.Open();
-                return conn.Query<Product>("SELECT *, ProductId AS Id FROM product WHERE ProductId = @Id").FirstOrDefault();
+                return conn.Query<Product>("SELECT *, ProductId AS Id FROM product WHERE ProductId = @Id", new Product {Id = id}).FirstOrDefault();
             }
         }
 
@@ -40,7 +40,7 @@ namespace ITB.Repositories
             using (var conn = _conn)
             {
                 conn.Open();
-                return conn.Execute("DELETE FROM product WHERE ProductId = @Id", new { id });
+                return conn.Execute("DELETE FROM product WHERE ProductId = @Id", new Product { Id = id });
             }
         }
 
