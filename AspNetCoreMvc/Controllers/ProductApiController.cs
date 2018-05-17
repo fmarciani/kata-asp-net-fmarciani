@@ -28,9 +28,9 @@ namespace AspNetCoreMvc.Controllers
 
         // GET: api/ProductApi/5
         [HttpGet("{id}", Name = "Get")]
-        public Product Get(int id)
+        public async Task<Product> Get(int id)
         {
-            return _prodRepo.GetProduct(id);
+            return await _prodRepo.GetProduct(id);
         }
         
         // POST: api/ProductApi
