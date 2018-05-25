@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using ITB.Shared;
 using Dapper;
 using System.Threading.Tasks;
 
-namespace ITB.Repositories
+namespace AspNetCoreKata.ProductRepo
 {
     public class ProductRepository : IProductRepository
     {
@@ -17,21 +16,21 @@ namespace ITB.Repositories
             _conn = conn;
         }
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public Task<IEnumerable<Product>> GetProducts()
         {
             using (var conn = _conn)
             {
                 conn.Open();
-                return await conn.QueryAsync<Product>("SELECT *, ProductId AS Id FROM product");
+                return conn.QueryAsync<Product>("SELECT *, ProductId AS Id FROM product");
             }
         }
 
-        public async Task<Product> GetProduct(int id)
+        public Product GetProduct(int id)
         {
             using (var conn = _conn)
             {
                 conn.Open();
-                return await conn.QueryFirstAsync<Product>("SELECT *, ProductId AS Id FROM product WHERE ProductId = @Id", new Product {Id = id});
+                return conn.Query<Product>("SELECT *, ProductId AS Id FROM product WHERE ProductId = @Id").FirstOrDefault();
             }
         }
 
@@ -40,7 +39,7 @@ namespace ITB.Repositories
             using (var conn = _conn)
             {
                 conn.Open();
-                return conn.Execute("DELETE FROM product WHERE ProductId = @Id", new Product { Id = id });
+                return conn.Execute("DELETE FROM product WHERE ProductId = @Id", new { id });
             }
         }
 
